@@ -1,4 +1,6 @@
 import React from 'react'
+import { Link } from 'react-router-dom'
+
 import {
   CAvatar,
   CBadge,
@@ -9,86 +11,210 @@ import {
   CDropdownMenu,
   CDropdownToggle,
 } from '@coreui/react'
+
 import {
   cilBell,
-  cilCreditCard,
-  cilCommentSquare,
   cilEnvelopeOpen,
-  cilFile,
   cilLockLocked,
   cilSettings,
-  cilTask,
   cilUser,
+  cilList,
+  cilCreditCard,
 } from '@coreui/icons'
+
 import CIcon from '@coreui/icons-react'
 
-import avatar8 from './../../assets/images/avatars/8.jpg'
-
 const AppHeaderDropdown = () => {
+
+  const logout = () => {
+
+    localStorage.removeItem('loggedIn')
+
+    window.location.href = '/#/login'
+  }
+
+  const profileImage = localStorage.getItem(
+    'profileImage'
+  )
+
   return (
+
     <CDropdown variant="nav-item">
-      <CDropdownToggle placement="bottom-end" className="py-0 pe-0" caret={false}>
-        <CAvatar src={avatar8} size="md" />
+
+      <CDropdownToggle
+        placement="bottom-end"
+        className="py-0 pe-0"
+        caret={false}
+      >
+
+        <CAvatar
+          src={profileImage || undefined}
+          color="primary"
+          textColor="white"
+          size="md"
+        >
+          {!profileImage && 'A'}
+        </CAvatar>
+
       </CDropdownToggle>
-      <CDropdownMenu className="pt-0" placement="bottom-end">
-        <CDropdownHeader className="bg-body-secondary fw-semibold mb-2">Account</CDropdownHeader>
-        <CDropdownItem href="#">
-          <CIcon icon={cilBell} className="me-2" />
+
+      <CDropdownMenu
+        className="pt-0"
+        placement="bottom-end"
+      >
+
+        <CDropdownHeader
+          className="bg-body-secondary fw-semibold mb-2"
+        >
+          SmartProcure Account
+        </CDropdownHeader>
+
+        {/* ================= UPDATES ================= */}
+
+        <CDropdownItem
+          as={Link}
+          to="/updates"
+        >
+
+          <CIcon
+            icon={cilBell}
+            className="me-2"
+          />
+
           Updates
-          <CBadge color="info" className="ms-2">
-            42
+
+          <CBadge
+            color="info"
+            className="ms-2"
+          >
+            LIVE
           </CBadge>
+
         </CDropdownItem>
-        <CDropdownItem href="#">
-          <CIcon icon={cilEnvelopeOpen} className="me-2" />
+
+        {/* ================= MESSAGES ================= */}
+
+        <CDropdownItem>
+
+          <CIcon
+            icon={cilEnvelopeOpen}
+            className="me-2"
+          />
+
           Messages
-          <CBadge color="success" className="ms-2">
-            42
+
+          <CBadge
+            color="success"
+            className="ms-2"
+          >
+            Soon
           </CBadge>
+
         </CDropdownItem>
-        <CDropdownItem href="#">
-          <CIcon icon={cilTask} className="me-2" />
-          Tasks
-          <CBadge color="danger" className="ms-2">
-            42
+
+        {/* ================= ACTIVE TENDERS ================= */}
+
+        <CDropdownItem
+          as={Link}
+          to="/tenders"
+        >
+
+          <CIcon
+            icon={cilList}
+            className="me-2"
+          />
+
+          Active Tenders
+
+          <CBadge
+            color="primary"
+            className="ms-2"
+          >
+            DB
           </CBadge>
+
         </CDropdownItem>
-        <CDropdownItem href="#">
-          <CIcon icon={cilCommentSquare} className="me-2" />
-          Comments
-          <CBadge color="warning" className="ms-2">
-            42
+
+        {/* ================= PREMIUM ================= */}
+
+        <CDropdownItem
+          as={Link}
+          to="/premium"
+        >
+
+          <CIcon
+            icon={cilCreditCard}
+            className="me-2"
+          />
+
+          Premium Subscription
+
+          <CBadge
+            color="warning"
+            className="ms-2"
+          >
+            PRO
           </CBadge>
+
         </CDropdownItem>
-        <CDropdownHeader className="bg-body-secondary fw-semibold my-2">Settings</CDropdownHeader>
-        <CDropdownItem href="#">
-          <CIcon icon={cilUser} className="me-2" />
-          Profile
-        </CDropdownItem>
-        <CDropdownItem href="#">
-          <CIcon icon={cilSettings} className="me-2" />
+
+        {/* ================= SETTINGS ================= */}
+
+        <CDropdownHeader
+          className="bg-body-secondary fw-semibold my-2"
+        >
           Settings
+        </CDropdownHeader>
+
+        {/* ================= PROFILE ================= */}
+
+        <CDropdownItem
+          as={Link}
+          to="/profile"
+        >
+
+          <CIcon
+            icon={cilUser}
+            className="me-2"
+          />
+
+          Profile
+
         </CDropdownItem>
-        <CDropdownItem href="#">
-          <CIcon icon={cilCreditCard} className="me-2" />
-          Payments
-          <CBadge color="secondary" className="ms-2">
-            42
-          </CBadge>
+
+        {/* ================= PLATFORM SETTINGS ================= */}
+
+        <CDropdownItem>
+
+          <CIcon
+            icon={cilSettings}
+            className="me-2"
+          />
+
+          Platform Settings
+
         </CDropdownItem>
-        <CDropdownItem href="#">
-          <CIcon icon={cilFile} className="me-2" />
-          Projects
-          <CBadge color="primary" className="ms-2">
-            42
-          </CBadge>
-        </CDropdownItem>
+
         <CDropdownDivider />
-        <CDropdownItem href="#">
-          <CIcon icon={cilLockLocked} className="me-2" />
-          Lock Account
+
+        {/* ================= LOGOUT ================= */}
+
+        <CDropdownItem
+          onClick={logout}
+          style={{ cursor: 'pointer' }}
+        >
+
+          <CIcon
+            icon={cilLockLocked}
+            className="me-2"
+          />
+
+          Logout
+
         </CDropdownItem>
+
       </CDropdownMenu>
+
     </CDropdown>
   )
 }
