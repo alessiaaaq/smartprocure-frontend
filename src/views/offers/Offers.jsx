@@ -38,15 +38,15 @@ const Offers = () => {
   const fetchData = async () => {
 
     const offersRes = await axios.get(
-      'http://localhost:5000/offers'
+      'https://smartprocure-api.onrender.com/offers'
     )
 
     const tendersRes = await axios.get(
-      'http://localhost:5000/tenders'
+      'https://smartprocure-api.onrender.com/tenders'
     )
 
     const suppliersRes = await axios.get(
-      'http://localhost:5000/suppliers'
+      'https://smartprocure-api.onrender.com/suppliers'
     )
 
     setOffers(offersRes.data)
@@ -73,7 +73,7 @@ const Offers = () => {
     ) return
 
     await axios.post(
-      'http://localhost:5000/offers',
+      'https://smartprocure-api.onrender.com/offers',
       {
         tenderId: selectedTender,
         supplier: selectedSupplier,

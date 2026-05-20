@@ -23,7 +23,7 @@ const Updates = () => {
   const fetchUpdates = async () => {
 
     const res = await axios.get(
-      'http://localhost:5000/updates'
+      'https://smartprocure-api.onrender.com/updates'
     )
 
     setUpdates(res.data)

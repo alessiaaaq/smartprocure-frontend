@@ -22,7 +22,7 @@ const Suppliers = () => {
   const [email, setEmail] = useState('')
 
   const fetchSuppliers = async () => {
-    const res = await axios.get('http://localhost:5000/suppliers')
+    const res = await axios.get('https://smartprocure-api.onrender.com/suppliers')
     setSuppliers(res.data)
   }
 
@@ -33,7 +33,7 @@ const Suppliers = () => {
   const addSupplier = async () => {
     if (!name || !email) return
 
-    await axios.post('http://localhost:5000/suppliers', {
+    await axios.post('https://smartprocure-api.onrender.com/suppliers', {
       name,
       email,
     })

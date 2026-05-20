@@ -30,7 +30,7 @@ const Tenders = () => {
   const fetchTenders = async () => {
 
     const res = await axios.get(
-      'http://localhost:5000/tenders'
+      'https://smartprocure-api.onrender.com/tenders'
     )
 
     setTenders(res.data)
@@ -53,7 +53,7 @@ const Tenders = () => {
     ) return
 
     await axios.post(
-      'http://localhost:5000/tenders',
+      'https://smartprocure-api.onrender.com/tenders',
       {
         title,
         budget,
@@ -77,7 +77,7 @@ const Tenders = () => {
   ) => {
 
     await fetch(
-      `http://localhost:5000/tenders/${id}`,
+      `https://smartprocure-api.onrender.com/tenders/${id}`,
       {
         method: 'PUT',
         headers: {

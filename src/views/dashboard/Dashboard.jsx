@@ -43,7 +43,7 @@ const Dashboard = () => {
     /* ================= STATS ================= */
 
     const statsRes = await axios.get(
-      'http://localhost:5000/stats'
+      'https://smartprocure-api.onrender.com/stats'
     )
 
     setStats(statsRes.data)
@@ -51,7 +51,7 @@ const Dashboard = () => {
     /* ================= TENDERS ================= */
 
     const tendersRes = await axios.get(
-      'http://localhost:5000/tenders'
+      'https://smartprocure-api.onrender.com/tenders'
     )
 
     setTenders(
@@ -61,7 +61,7 @@ const Dashboard = () => {
     /* ================= UPDATES ================= */
 
     const updatesRes = await axios.get(
-      'http://localhost:5000/updates'
+      'https://smartprocure-api.onrender.com/updates'
     )
 
     setUpdates(

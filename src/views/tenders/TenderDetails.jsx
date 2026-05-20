@@ -31,7 +31,7 @@ const TenderDetails = () => {
     /* ================= TENDER ================= */
 
     const tenderRes = await axios.get(
-      'http://localhost:5000/tenders'
+      'https://smartprocure-api.onrender.com/tenders'
     )
 
     const foundTender =
@@ -44,7 +44,7 @@ const TenderDetails = () => {
     /* ================= OFFERS ================= */
 
     const offersRes = await axios.get(
-      'http://localhost:5000/offers'
+      'https://smartprocure-api.onrender.com/offers'
     )
 
     const filteredOffers =
