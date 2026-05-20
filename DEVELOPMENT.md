@@ -72,7 +72,7 @@ npm start
 yarn start
 ```
 
-4. **Open your browser** to [http://localhost:3000](http://localhost:3000)
+4. **Open your browser** to [https://smartprocure-api.onrender.com](https://smartprocure-api.onrender.com)
 
 The development server includes:
 - Hot Module Replacement (HMR) for instant updates
@@ -341,7 +341,7 @@ export default [
 ```
 
 **4. Test the page**:
-- Navigate to `http://localhost:3000/#/products`
+- Navigate to `https://smartprocure-api.onrender.com`
 - Check that navigation highlights correctly
 - Verify breadcrumb displays properly
 
@@ -992,7 +992,7 @@ Test production build locally:
 npm run serve
 ```
 
-Opens preview server at `http://localhost:4173`
+Opens preview server at `https://smartprocure-api.onrender.com`
 
 ### Deployment Platforms
 
