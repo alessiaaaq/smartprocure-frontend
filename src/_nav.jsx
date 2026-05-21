@@ -1,5 +1,5 @@
 import React from 'react'
-
+import { cilCart } from '@coreui/icons'
 import CIcon from '@coreui/icons-react'
 
 import {
@@ -17,7 +17,12 @@ import {
 } from '@coreui/react'
 
 const _nav = [
-
+{
+  component: CNavItem,
+  name: 'Cart',
+  to: '/cart',
+  icon: <CIcon icon={cilCart} customClassName="nav-icon" />,
+},
   {
     component: CNavItem,
     name: 'Dashboard',

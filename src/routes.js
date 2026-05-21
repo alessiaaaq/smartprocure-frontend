@@ -4,6 +4,10 @@ const Dashboard = React.lazy(() =>
   import('./views/dashboard/Dashboard')
 )
 
+const Cart = React.lazy(() =>
+  import('./views/cart/Cart')
+)
+
 const Tenders = React.lazy(() =>
   import('./views/tenders/Tenders')
 )
@@ -48,6 +52,11 @@ const routes = [
   path: '/updates',
   name: 'Updates',
   element: Updates,
+},
+{
+  path: '/cart',
+  name: 'Cart',
+  element: Cart,
 },
 
 {

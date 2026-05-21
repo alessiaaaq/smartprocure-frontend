@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react'
-
 import axios from 'axios'
 
 import {
@@ -7,7 +6,6 @@ import {
   CCard,
   CCardBody,
   CCardHeader,
-  CFormSelect,
   CFormInput,
   CTable,
   CTableBody,
@@ -18,182 +16,89 @@ import {
 } from '@coreui/react'
 
 const Offers = () => {
-
   const [offers, setOffers] = useState([])
 
-  const [tenders, setTenders] = useState([])
-
-  const [suppliers, setSuppliers] = useState([])
-
-  const [selectedTender, setSelectedTender] =
-    useState('')
-
-  const [selectedSupplier, setSelectedSupplier] =
-    useState('')
-
+  const [supplier, setSupplier] = useState('')
   const [price, setPrice] = useState('')
 
-  /* ================= FETCH ================= */
-
-  const fetchData = async () => {
-
-    const offersRes = await axios.get(
+  const fetchOffers = async () => {
+    const res = await axios.get(
       'https://smartprocure-api.onrender.com/offers'
     )
 
-    const tendersRes = await axios.get(
-      'https://smartprocure-api.onrender.com/tenders'
-    )
-
-    const suppliersRes = await axios.get(
-      'https://smartprocure-api.onrender.com/suppliers'
-    )
-
-    setOffers(offersRes.data)
-
-    setTenders(tendersRes.data)
-
-    setSuppliers(suppliersRes.data)
+    setOffers(res.data)
   }
 
   useEffect(() => {
-
-    fetchData()
-
+    fetchOffers()
   }, [])
 
-  /* ================= ADD OFFER ================= */
-
   const addOffer = async () => {
-
-    if (
-      !selectedTender ||
-      !selectedSupplier ||
-      !price
-    ) return
+    if (!supplier || !price) return
 
     await axios.post(
       'https://smartprocure-api.onrender.com/offers',
       {
-        tenderId: selectedTender,
-        supplier: selectedSupplier,
+        supplier,
         price,
-      },
+      }
     )
 
+    setSupplier('')
     setPrice('')
 
-    fetchData()
+    fetchOffers()
+  }
+
+  const addToCart = (offer) => {
+    const existingCart =
+      JSON.parse(localStorage.getItem('cart')) || []
+
+    existingCart.push({
+      supplier: offer.supplier,
+      price: offer.price,
+    })
+
+    localStorage.setItem(
+      'cart',
+      JSON.stringify(existingCart)
+    )
+
+    alert('Offer added to cart!')
   }
 
   return (
-
     <CCard>
-
-      <CCardHeader>
-        Offers
-      </CCardHeader>
+      <CCardHeader>Offers</CCardHeader>
 
       <CCardBody>
-
-        {/* ================= FORM ================= */}
-
         <div className="mb-4">
-
-          {/* ================= TENDER ================= */}
-
-          <CFormSelect
+          <CFormInput
             className="mb-2"
-            value={selectedTender}
+            placeholder="Supplier"
+            value={supplier}
             onChange={(e) =>
-              setSelectedTender(
-                e.target.value,
-              )
+              setSupplier(e.target.value)
             }
-          >
-
-            <option value="">
-              Select Tender
-            </option>
-
-            {tenders.map((tender) => (
-
-              <option
-                key={tender.id}
-                value={tender.id}
-              >
-
-                {tender.title}
-
-              </option>
-
-            ))}
-
-          </CFormSelect>
-
-          {/* ================= SUPPLIER ================= */}
-
-          <CFormSelect
-            className="mb-2"
-            value={selectedSupplier}
-            onChange={(e) =>
-              setSelectedSupplier(
-                e.target.value,
-              )
-            }
-          >
-
-            <option value="">
-              Select Supplier
-            </option>
-
-            {suppliers.map((supplier) => (
-
-              <option
-                key={supplier.id}
-                value={supplier.name}
-              >
-
-                {supplier.name}
-
-              </option>
-
-            ))}
-
-          </CFormSelect>
-
-          {/* ================= PRICE ================= */}
+          />
 
           <CFormInput
             className="mb-2"
-            placeholder="Offer Price"
+            placeholder="Price"
             value={price}
             onChange={(e) =>
               setPrice(e.target.value)
             }
           />
 
-          {/* ================= BUTTON ================= */}
-
-          <CButton
-            color="primary"
-            onClick={addOffer}
-          >
-
+          <CButton color="primary" onClick={addOffer}>
             Add Offer
-
           </CButton>
-
         </div>
 
-        {/* ================= TABLE ================= */}
-
-        <CTable hover responsive>
-
+        <CTable hover>
           <CTableHead>
-
             <CTableRow>
-
               <CTableHeaderCell>
                 Supplier
               </CTableHeaderCell>
@@ -203,41 +108,38 @@ const Offers = () => {
               </CTableHeaderCell>
 
               <CTableHeaderCell>
-                Tender ID
+                Actions
               </CTableHeaderCell>
-
             </CTableRow>
-
           </CTableHead>
 
           <CTableBody>
-
             {offers.map((offer) => (
-
               <CTableRow key={offer.id}>
-
                 <CTableDataCell>
                   {offer.supplier}
                 </CTableDataCell>
 
                 <CTableDataCell>
-                  {offer.price} €
+                  {offer.price}€
                 </CTableDataCell>
 
                 <CTableDataCell>
-                  {offer.tenderId}
+                  <CButton
+                    color="success"
+                    size="sm"
+                    onClick={() =>
+                      addToCart(offer)
+                    }
+                  >
+                    Add to Cart
+                  </CButton>
                 </CTableDataCell>
-
               </CTableRow>
-
             ))}
-
           </CTableBody>
-
         </CTable>
-
       </CCardBody>
-
     </CCard>
   )
 }
